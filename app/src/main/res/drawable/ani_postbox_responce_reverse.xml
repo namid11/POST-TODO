@@ -1,0 +1,35 @@
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+    <aapt:attr name="android:drawable">
+        <vector
+            android:name="postbox_response_reverse"
+            android:width="160dp"
+            android:height="40dp"
+            android:viewportWidth="160"
+            android:viewportHeight="40">
+            <path
+                android:name="path"
+                android:pathData="M 20 0 L 140 0 C 145.302 0 150.393 2.109 154.142 5.858 C 157.891 9.607 160 14.698 160 20 C 160 25.302 157.891 30.393 154.142 34.142 C 150.393 37.891 145.302 40 140 40 L 20 40 C 14.698 40 9.607 37.891 5.858 34.142 C 2.109 30.393 0 25.302 0 20 C 0 14.698 2.109 9.607 5.858 5.858 C 9.607 2.109 14.698 0 20 0"
+                android:fillColor="#ffae60"
+                android:strokeWidth="1"/>
+            <path
+                android:name="path_1"
+                android:pathData="M 20.5 20.5 L 140.5 20.5"
+                android:strokeColor="#ff5500"
+                android:strokeWidth="20"
+                android:strokeLineCap="round"/>
+        </vector>
+    </aapt:attr>
+    <target android:name="path_1">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:propertyName="strokeWidth"
+                android:duration="600"
+                android:valueFrom="20"
+                android:valueTo="5"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/fast_out_slow_in"/>
+        </aapt:attr>
+    </target>
+</animated-vector>

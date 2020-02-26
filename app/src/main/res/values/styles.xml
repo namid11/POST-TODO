@@ -1,0 +1,58 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.FullScreen">
+        <item name="windowActionBar">false</item>x
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="TitleTextViewTheme" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/baloo_bhai</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <!--    TextView Custom   -->
+    <style name="TextViewTheme" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:fontFamily">@font/muli_light</item>
+    </style>
+
+    <!--    EditText Custom   -->
+    <style name="EditTextTheme" parent="Widget.AppCompat.EditText">
+        <item name="colorControlActivated" tools:targetApi="lollipop">@color/colorPrimary</item>
+        <item name="colorControlNormal" tools:targetApi="lollipop">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textColorHint">@color/colorPrimaryDark</item>
+        <item name="android:fontFamily">@font/muli_light</item>
+        <item name="android:background">@drawable/theme_edit_text</item>
+    </style>
+
+    <!--  Button Custom  -->
+    <style name="ButtonTheme" parent="Widget.AppCompat.Button">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:fontFamily">@font/baloo_bhai</item>
+        <item name="android:background">@drawable/theme_button</item>
+    </style>
+
+
+    <!--  ImageButton Custom  -->
+    <style name="ImageButtonTheme" parent="Widget.AppCompat.ImageButton">
+        <item name="android:background">@drawable/theme_icon_button</item>
+        <item name="elevation">5dp</item>
+        <item name="android:layout_width">64dp</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FF5500</color>
+    <color name="colorPrimaryDark">#FFAE60</color>
+    <color name="colorAccent">#FF3655</color>
+    
+    <color name="colorAccentTransparent">#FF7289</color>
+    <color name="colorPrimaryTransparent">#FF8963</color>
+    <color name="colorPrimaryExtraLight">#FFE4D6</color>
+    <color name="colorAccentExtraLight">#FFE6E6</color>
+    <color name="colorBlack">#2D3436</color>
+    <color name="colorWhite">#FFFFFF</color>
+
+    <color name="colorTodoTileStart">#FF8354</color>
+    <color name="colorTodoTileEnd">#FFC758</color>
+    <color name="colorTodoTileStartPressed">#FD713C</color>
+    <color name="colorTodoTileEndPressed">#FDBE3F</color>
+
+    <color name="colorPrimaryLine">#FFA44D</color>
+</resources>

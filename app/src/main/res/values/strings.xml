@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Postbox</string>
+    <string name="todo">TODO</string>
+    <string name="title">Title</string>
+    <string name="add">add</string>
+    <string name="edit">EDIT</string>
+    <string name="delete">DELETE</string>
+    <string name="update">UPDATE</string>
+</resources>
