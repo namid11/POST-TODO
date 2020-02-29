@@ -7,8 +7,11 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.example.postbox.Helper.DB_DEFAULT_STATE_TABLE
 import com.example.postbox.Helper.TodoDataBaseOpenHelper
 import com.example.postbox.R
+import java.lang.Exception
+import java.lang.NullPointerException
 
 class AddButtonClickListener(private val context: Context, val okListener: (View?) -> Unit) : View.OnClickListener {
 
@@ -32,7 +35,7 @@ class AddButtonClickListener(private val context: Context, val okListener: (View
                 dbHelper.insertTodo(
                     title = title,
                     detail = detail,
-                    state = 1
+                    state = DB_DEFAULT_STATE_TABLE["TODO"] ?: throw NullPointerException()
                 )
 
                 okListener(v)

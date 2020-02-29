@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/baloo_bhai"
-        android:text="@string/todo"
+        android:text="@string/post_todo"
         android:textAlignment="center"
         android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,7 +25,7 @@
         android:id="@+id/postbox_recyclerView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:background="#00FFFFFF"
         android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
@@ -87,6 +87,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_plus" />
+
+        <TextView
+            android:id="@+id/todo_board_title_textview"
+            style="@style/TitleTextViewTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/todo_board_recyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

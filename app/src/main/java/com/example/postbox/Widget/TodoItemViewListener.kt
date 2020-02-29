@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.database.Cursor
 import android.util.Log
+import android.view.DragEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
@@ -11,7 +12,7 @@ import com.example.postbox.Helper.TodoDataBaseOpenHelper
 import com.example.postbox.R
 import java.lang.Exception
 
-class TodoItemViewClickListener(private val context: Context, val updateListener: (View?) -> Unit, val deleteListener: (View?) -> Unit): View.OnClickListener {
+class TodoItemViewClickListener(private val context: Context, private val todoID: Int, val updateListener: (View?) -> Unit, val deleteListener: (View?) -> Unit): View.OnClickListener {
 
     private lateinit var updateButton: Button
     private lateinit var deleteButton: ImageButton
@@ -30,11 +31,10 @@ class TodoItemViewClickListener(private val context: Context, val updateListener
         val alertDialog = dialogBuilder.show()// show
 
 
-        val id = v?.tag as Int
         // title , detail にもとのデータをセット
         val titleEditView = dialogView.findViewById<EditText>(R.id.edit_todo_title_view)
         val detailEditView = dialogView.findViewById<EditText>(R.id.edit_todo_detail_view)
-        dbHelper.readTodo(id = id) { cursor: Cursor ->
+        dbHelper.readTodo(id = todoID) { cursor: Cursor ->
             cursor.moveToFirst()
             titleEditView.setText(
                 cursor.getString(cursor.getColumnIndex("title")),
@@ -45,6 +45,7 @@ class TodoItemViewClickListener(private val context: Context, val updateListener
             )
         }
 
+        // Update
         updateButton = dialogView.findViewById(R.id.edit_todo_update_button)
         updateButton.setOnClickListener {
             val title = titleEditView.text.toString()
@@ -53,22 +54,43 @@ class TodoItemViewClickListener(private val context: Context, val updateListener
                 Toast.makeText(context, "TODO名を記入してください", Toast.LENGTH_LONG).show()
             } else {
                 dbHelper.updateTodo(
-                    id,
+                    todoID,
                     title = title,
                     detail = detail,
-                    state = 1
+                    state = null
                 )
                 updateListener(v)
                 alertDialog.dismiss()   // hidden alert dialog
             }
         }
 
+        // Delete
         deleteButton = dialogView.findViewById(R.id.edit_todo_delete_button)
         deleteButton.setOnClickListener {
-            dbHelper.deleteTodo(id)
+            dbHelper.deleteTodo(todoID)
             deleteListener(v)
             alertDialog.dismiss()   // hidden alert dialog
         }
+    }
+
+}
+
+
+class TodoItemViewDragListener(context: Context): View.OnDragListener {
+    override fun onDrag(v: View?, event: DragEvent?): Boolean {
+        when (event?.action) {
+            DragEvent.ACTION_DRAG_STARTED -> {
+                Log.d("[Drag Action]", "start")
+                return true
+            }
+            DragEvent.ACTION_DRAG_ENDED -> {
+                Log.d("[Drag Action]", "end")
+                Log.d("[Drag Action]", event.result.toString())
+                return true
+            }
+
+        }
+        return false
     }
 
 }
