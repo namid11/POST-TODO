@@ -6,11 +6,13 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import androidx.core.content.contentValuesOf
+import java.lang.Exception
+import java.lang.NullPointerException
 
 private const val DB_NAME = "TodoDatabase"
 private const val DB_VERSION = 1
 
-val DB_DEFAULT_STATE_TABLE = mapOf<String, Int>("TODO" to 1 , "NIGHT" to 2 , "DONE" to 3)
+val DB_DEFAULT_STATE_TABLE = mapOf<String, Int>("TODO" to 1, "DONE" to 2 , "YET" to 3, "TOMORROW" to 4)
 
 class TodoDataBaseOpenHelper(private val context: Context): SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
 
@@ -46,9 +48,7 @@ class TodoDataBaseOpenHelper(private val context: Context): SQLiteOpenHelper(con
     fun defaultSetup() {
         // stateテーブルは初期値を設定
         writableDatabase.use {
-            it.insert("state", null, ContentValues().apply { put("name", "TODO") })
-            it.insert("state", null, ContentValues().apply { put("name", "NIGHT") })
-            it.insert("state", null, ContentValues().apply { put("name", "TOMORROW") })
+            for(i in 0 until DB_DEFAULT_STATE_TABLE.count()) it.insert("state", null, ContentValues().apply { put("name", DB_DEFAULT_STATE_TABLE.keys.elementAt(i)) })
         }
 
         val sharedPreferences = context.getSharedPreferences("todo_database", Context.MODE_PRIVATE)
@@ -56,7 +56,7 @@ class TodoDataBaseOpenHelper(private val context: Context): SQLiteOpenHelper(con
     }
 
 
-    fun insertTodo(title: String, detail: String?, state: Int = 1) {
+    fun insertTodo(title: String, detail: String?, state: Int = DB_DEFAULT_STATE_TABLE["TODO"] ?: throw NullPointerException()) {
         writableDatabase.use {
             it.insert("todo", null, ContentValues().apply {
                 put("title", title)
@@ -124,34 +124,47 @@ class TodoDataBaseOpenHelper(private val context: Context): SQLiteOpenHelper(con
 
 
 
-    // --- OPERATE STATE TABLE --- //
-//
-//    fun readState(where: String? = null, whereValue: Array<String>? = null): Cursor {
-//        var cursor: Cursor? = null
-//        readableDatabase.use {
-//            val c = it.query(
-//                "state",
-//                arrayOf("id", "name"),
-//                where,
-//                whereValue,
-//                null,
-//                null,
-//                null,
-//                null
-//            )
-//            cursor = c
-//        }
-//        return cursor!!
-//    }
+    // --- READ STATE TABLE --- //
+    fun readState(where: String? = null, whereValue: Array<String>? = null, resolve: (Cursor) -> Unit) {
+        var cursor: Cursor? = null
+        readableDatabase.use {
+            val cursor = it.query(
+                "state",
+                arrayOf("id", "name"),
+                where,
+                whereValue,
+                null,
+                null,
+                null,
+                null
+            )
 
-//    fun stateId(target: String): Int? {
-//        val cursor = readState()
-//        do {
-//            if (cursor.getString(cursor.getColumnIndex("state")) == target) {
-//                return cursor.getInt(cursor.getColumnIndex("id"))
-//            }
-//        } while (cursor.moveToNext())
-//
-//        return null
-//    }
+            resolve(cursor)
+        }
+    }
+
+
+
+    // --- OPERATE TABLE --- //
+    // 1日分更新
+    fun operateUpdateState() {
+        writableDatabase.use {
+            // 昨日のTODOを"YET"
+            it.update(
+                "todo",
+                ContentValues().apply { put("state", DB_DEFAULT_STATE_TABLE["YET"]) },
+                "state == ?",
+                arrayOf(DB_DEFAULT_STATE_TABLE["TODO"].toString())
+            )
+
+            // 昨日のTOMORROWを"TODO"
+            it.update(
+                "todo",
+                ContentValues().apply { put("state", DB_DEFAULT_STATE_TABLE["TODO"]) },
+                "state == ?",
+                arrayOf(DB_DEFAULT_STATE_TABLE["TOMORROW"].toString())
+            )
+        }
+    }
+
 }

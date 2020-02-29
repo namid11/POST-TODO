@@ -6,4 +6,5 @@
     <string name="edit">EDIT</string>
     <string name="delete">DELETE</string>
     <string name="update">UPDATE</string>
+    <string name="post_todo">POST TODO</string>
 </resources>
