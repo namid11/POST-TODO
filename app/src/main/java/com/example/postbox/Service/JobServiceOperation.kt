@@ -33,12 +33,7 @@ fun operateFirstJobService(context: Context) {
 
 fun operateNotificationJobService(context: Context) {
     val jobInfo = JobInfo.Builder(2, ComponentName(context, NotificationJobService::class.java)).apply {
-        if (BuildConfig.DEBUG) {
-            setPeriodic(TimeUnit.MINUTES.toMillis(15))
-        } else {
-            setPeriodic(TimeUnit.DAYS.toMillis(1))
-        }
-
+        if (BuildConfig.DEBUG) setPeriodic(TimeUnit.MINUTES.toMillis(15)) else setPeriodic(TimeUnit.DAYS.toMillis(1))
         setPersisted(true)      // 再起動しても有効
     }.build()
 

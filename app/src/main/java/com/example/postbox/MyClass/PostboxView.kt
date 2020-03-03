@@ -1,8 +1,7 @@
-package com.example.postbox.ExtendClass
+package com.example.postbox.MyClass
 
 import android.content.Context
 import android.view.View
-import java.lang.NullPointerException
 
 class PostboxView(context: Context): View(context) {
     var postboxData: PostboxData?

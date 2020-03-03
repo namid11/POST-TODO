@@ -12,38 +12,38 @@
                 <path
                     android:name="path"
                     android:pathData="M 13.957 13.957 L 13.957 384.957"
-                    android:strokeColor="@color/colorPrimaryLine"
-                    android:strokeWidth="20"
+                    android:strokeColor="@color/colorAccent"
+                    android:strokeWidth="50"
                     android:strokeLineCap="round"/>
                 <path
                     android:name="path_1"
                     android:pathData="M 13.957 384.957 L 596.957 384.957"
-                    android:strokeColor="@color/colorPrimaryLine"
-                    android:strokeWidth="20"
+                    android:strokeColor="@color/colorAccent"
+                    android:strokeWidth="50"
                     android:strokeLineCap="round"/>
                 <path
                     android:name="path_2"
                     android:pathData="M 596.957 384.957 L 596.957 13.957"
-                    android:strokeColor="@color/colorPrimaryLine"
-                    android:strokeWidth="20"
+                    android:strokeColor="@color/colorAccent"
+                    android:strokeWidth="50"
                     android:strokeLineCap="round"/>
                 <path
                     android:name="path_3"
                     android:pathData="M 13.957 13.957 L 596.957 13.957"
-                    android:strokeColor="@color/colorPrimaryLine"
-                    android:strokeWidth="20"
+                    android:strokeColor="@color/colorAccent"
+                    android:strokeWidth="50"
                     android:strokeLineCap="round"/>
                 <path
                     android:name="path_4"
                     android:pathData="M 13.957 13.957 L 305.957 223.957"
-                    android:strokeColor="@color/colorPrimaryLine"
-                    android:strokeWidth="20"
+                    android:strokeColor="@color/colorAccent"
+                    android:strokeWidth="50"
                     android:strokeLineCap="round"/>
                 <path
                     android:name="path_5"
                     android:pathData="M 597.957 13.957 L 305.957 223.957"
-                    android:strokeColor="@color/colorPrimaryLine"
-                    android:strokeWidth="20"
+                    android:strokeColor="@color/colorAccent"
+                    android:strokeWidth="50"
                     android:strokeLineCap="round"/>
             </group>
         </vector>
@@ -52,7 +52,7 @@
         <aapt:attr name="android:animation">
             <objectAnimator
                 android:propertyName="pathData"
-                android:duration="1009"
+                android:duration="398"
                 android:valueFrom="M 13.957 13.957 L 13.957 384.957"
                 android:valueTo="M 122.75 96.444 L 13.571 298.775"
                 android:valueType="pathType"
@@ -63,7 +63,7 @@
         <aapt:attr name="android:animation">
             <objectAnimator
                 android:propertyName="pathData"
-                android:duration="1009"
+                android:duration="398"
                 android:valueFrom="M 13.957 384.957 L 596.957 384.957"
                 android:valueTo="M 13.571 298.775 L 597.527 298.775"
                 android:valueType="pathType"
@@ -74,7 +74,7 @@
         <aapt:attr name="android:animation">
             <objectAnimator
                 android:propertyName="pathData"
-                android:duration="1009"
+                android:duration="398"
                 android:valueFrom="M 596.957 384.957 L 596.957 13.957"
                 android:valueTo="M 597.527 298.775 L 487.347 96.444"
                 android:valueType="pathType"
@@ -85,7 +85,7 @@
         <aapt:attr name="android:animation">
             <objectAnimator
                 android:propertyName="pathData"
-                android:duration="1009"
+                android:duration="398"
                 android:valueFrom="M 13.957 13.957 L 596.957 13.957"
                 android:valueTo="M 122.75 96.444 L 487.347 96.444"
                 android:valueType="pathType"
@@ -96,7 +96,7 @@
         <aapt:attr name="android:animation">
             <objectAnimator
                 android:propertyName="pathData"
-                android:duration="1009"
+                android:duration="398"
                 android:valueFrom="M 13.957 13.957 L 305.957 223.957"
                 android:valueTo="M 122.75 96.034 L 306.05 177.167"
                 android:valueType="pathType"
@@ -107,7 +107,7 @@
         <aapt:attr name="android:animation">
             <objectAnimator
                 android:propertyName="pathData"
-                android:duration="1009"
+                android:duration="398"
                 android:valueFrom="M 597.957 13.957 L 305.957 223.957"
                 android:valueTo="M 487.347 96.034 L 305.048 177.167"
                 android:valueType="pathType"
@@ -118,8 +118,8 @@
         <aapt:attr name="android:animation">
             <objectAnimator
                 android:propertyName="translateY"
-                android:startOffset="1009"
-                android:duration="991"
+                android:startOffset="493"
+                android:duration="699"
                 android:valueFrom="0"
                 android:valueTo="-400"
                 android:valueType="floatType"

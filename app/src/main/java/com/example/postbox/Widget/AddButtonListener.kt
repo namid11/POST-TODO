@@ -21,7 +21,6 @@ class AddButtonClickListener(private val context: Context, val okListener: (View
         val view = LayoutInflater.from(context).inflate(R.layout.dialog_create_todo, null)
         val dialogBuilder = AlertDialog.Builder(context).apply {
             setView(view)
-            setIcon(R.mipmap.ic_launcher)
             setCancelable(true)
         }
 

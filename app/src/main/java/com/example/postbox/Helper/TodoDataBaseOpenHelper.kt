@@ -5,14 +5,12 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import androidx.core.content.contentValuesOf
-import java.lang.Exception
 import java.lang.NullPointerException
 
 private const val DB_NAME = "TodoDatabase"
 private const val DB_VERSION = 1
 
-val DB_DEFAULT_STATE_TABLE = mapOf<String, Int>("TODO" to 1, "DONE" to 2 , "YET" to 3, "TOMORROW" to 4)
+val DB_DEFAULT_STATE_TABLE = mapOf<String, Int>("DONE" to 1, "TODO" to 2, "YET" to 3, "TOMORROW" to 4)
 
 class TodoDataBaseOpenHelper(private val context: Context): SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
 
@@ -68,7 +66,7 @@ class TodoDataBaseOpenHelper(private val context: Context): SQLiteOpenHelper(con
 
 
     fun updateTodo(id: Int, title: String? = null, detail: String? = null, state: Int?) {
-        val updateColumu = ContentValues().apply {
+        val updateColumn = ContentValues().apply {
             if (title != null) put("title", title)
             if (detail != null) put("detail", detail)
             if (state != null) put("state", state)
@@ -77,7 +75,7 @@ class TodoDataBaseOpenHelper(private val context: Context): SQLiteOpenHelper(con
         writableDatabase.use {
             it.update(
                 "todo",
-                updateColumu,
+                updateColumn,
                 "id == ?",
                 arrayOf(id.toString())
             )
@@ -147,7 +145,7 @@ class TodoDataBaseOpenHelper(private val context: Context): SQLiteOpenHelper(con
 
     // --- OPERATE TABLE --- //
     // 1日分更新
-    fun operateUpdateState() {
+    fun operateOneDayUpdateState() {
         writableDatabase.use {
             // 昨日のTODOを"YET"
             it.update(
@@ -161,6 +159,26 @@ class TodoDataBaseOpenHelper(private val context: Context): SQLiteOpenHelper(con
             it.update(
                 "todo",
                 ContentValues().apply { put("state", DB_DEFAULT_STATE_TABLE["TODO"]) },
+                "state == ?",
+                arrayOf(DB_DEFAULT_STATE_TABLE["TOMORROW"].toString())
+            )
+        }
+    }
+
+    fun operateAllYetUpdateState() {
+        writableDatabase.use {
+            // 昨日のTODOを"YET"
+            it.update(
+                "todo",
+                ContentValues().apply { put("state", DB_DEFAULT_STATE_TABLE["YET"]) },
+                "state == ?",
+                arrayOf(DB_DEFAULT_STATE_TABLE["TODO"].toString())
+            )
+
+            // 昨日のTOMORROWを"TODO"
+            it.update(
+                "todo",
+                ContentValues().apply { put("state", DB_DEFAULT_STATE_TABLE["YET"]) },
                 "state == ?",
                 arrayOf(DB_DEFAULT_STATE_TABLE["TOMORROW"].toString())
             )
