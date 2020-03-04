@@ -57,10 +57,6 @@ fun getNowDateStr(): String {
 }
 
 fun diffDay(cal_before: Calendar, cal_after: Calendar): Int {
-    Log.d("[Debug]", "after: %d, before: %d".format(cal_after.get(Calendar.HOUR_OF_DAY), cal_before.get(Calendar.HOUR_OF_DAY)))
-    Log.d("[Debug]", "after: %d, before: %d".format(cal_after.time.time, cal_before.time.time))
-    Log.d("[Debug]", "after: %s, before: %s".format(cal_after.time.toString(), cal_before.time.toString()))
-    Log.d("[Debug]", "after: %f".format(((cal_after.time.time - cal_before.time.time).toDouble() / TIME_DAY.toDouble())))
     cal_after.apply {
         set(Calendar.HOUR_OF_DAY, 0)
         set(Calendar.MINUTE, 0)

@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Point
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.AnimatedVectorDrawable
+import android.os.Build
 import android.util.Log
 import android.view.DragEvent
 import android.view.View
@@ -14,6 +15,7 @@ import com.example.postbox.Helper.TodoDataBaseOpenHelper
 import com.example.postbox.MyClass.PostboxView
 import com.example.postbox.R
 import org.json.JSONObject
+import java.lang.Exception
 
 
 class PostboxViewDragListener(private val context: Context): View.OnDragListener {
@@ -70,28 +72,22 @@ class PostboxViewDragListener(private val context: Context): View.OnDragListener
         if (v != null) {
             val postboxImage: ImageView = v.findViewById(R.id.postbox_image)
             postboxImage.setImageResource(R.drawable.ani_postbox_responce)
-            val drawable = postboxImage.drawable as? AnimatedVectorDrawable
-            if (drawable != null) {
-                if (!drawable.isRunning) {
-                    drawable.start()
-                }
-            } else {
-                (postboxImage.drawable as Animatable).start()
-            }
+            (postboxImage.drawable as Animatable).start()
         }
     }
 
     private fun closePostAnimation(v: View?) {
         if (v != null) {
             val postboxImage: ImageView = v.findViewById(R.id.postbox_image)
-            postboxImage.setImageResource(R.drawable.ani_postbox_responce_reverse)
-            val drawable = postboxImage.drawable as? AnimatedVectorDrawable
-            if (drawable != null) {
-                if (!drawable.isRunning) {
-                    drawable.start()
-                }
-            } else {
+            try {
+                postboxImage.setImageResource(R.drawable.ani_postbox_responce_reverse)
                 (postboxImage.drawable as Animatable).start()
+            } catch (e: Exception) {
+                Log.d("[ERROR]", "on closePostAnimation. message: %s".format(e.message))
+                postboxImage.setImageResource(R.drawable.ani_postbox_responce)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    (postboxImage.drawable as AnimatedVectorDrawable).reset()
+                }
             }
         }
     }

@@ -13,7 +13,7 @@ import com.example.postbox.R
 import java.lang.Exception
 import java.lang.NullPointerException
 
-class AddButtonClickListener(private val context: Context, val okListener: (View?) -> Unit) : View.OnClickListener {
+class AddButtonClickListener(private val context: Context, private val stateId: Int, val okListener: (View?) -> Unit) : View.OnClickListener {
 
     private val dbHelper = TodoDataBaseOpenHelper(context)
 
@@ -34,7 +34,7 @@ class AddButtonClickListener(private val context: Context, val okListener: (View
                 dbHelper.insertTodo(
                     title = title,
                     detail = detail,
-                    state = DB_DEFAULT_STATE_TABLE["TODO"] ?: throw NullPointerException()
+                    state = stateId
                 )
 
                 okListener(v)

@@ -13,6 +13,7 @@ import com.example.postbox.Functions.diffDay
 import com.example.postbox.Functions.getNowDate
 import com.example.postbox.Functions.notifyTodoUpdate
 import com.example.postbox.Functions.toCalendar
+import com.example.postbox.Helper.DB_DEFAULT_STATE_TABLE
 import com.example.postbox.Helper.TodoDataBaseOpenHelper
 
 class NotificationJobService: JobService() {
@@ -38,11 +39,13 @@ class NotificationJobService: JobService() {
                 }
                 diffDay == 1 -> {
                     dbHelper.operateOneDayUpdateState()
+                    dbHelper.operateRemovingDoneTodo(DB_DEFAULT_STATE_TABLE["DONE"] ?: 0)
                     dateDataPref.edit().putLong("last_update_date", currentTime).apply()    // 最終更新日時を更新
                     notifyTodoUpdate(this)  // 通知処理
                 }
                 diffDay >= 2 -> {
                     dbHelper.operateAllYetUpdateState()
+                    dbHelper.operateRemovingDoneTodo(DB_DEFAULT_STATE_TABLE["DONE"] ?: 0)
                     dateDataPref.edit().putLong("last_update_date", currentTime).apply()    // 最終更新日時を更新
                     notifyTodoUpdate(this)
                 }

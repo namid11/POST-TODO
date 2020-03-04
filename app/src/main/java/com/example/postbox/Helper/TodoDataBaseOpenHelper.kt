@@ -10,7 +10,7 @@ import java.lang.NullPointerException
 private const val DB_NAME = "TodoDatabase"
 private const val DB_VERSION = 1
 
-val DB_DEFAULT_STATE_TABLE = mapOf<String, Int>("DONE" to 1, "TODO" to 2, "YET" to 3, "TOMORROW" to 4)
+val DB_DEFAULT_STATE_TABLE = mapOf<String, Int>("DONE" to 1, "YET" to 2, "TODO" to 3, "TOMORROW" to 4)
 
 class TodoDataBaseOpenHelper(private val context: Context): SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
 
@@ -185,4 +185,14 @@ class TodoDataBaseOpenHelper(private val context: Context): SQLiteOpenHelper(con
         }
     }
 
+
+    fun operateRemovingDoneTodo(stateId: Int) {
+        writableDatabase.use {
+            it.delete(
+                "todo",
+                "state == ?",
+                arrayOf(stateId.toString())
+            )
+        }
+    }
 }
