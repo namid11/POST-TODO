@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.database.Cursor
 import android.graphics.Point
+import android.graphics.drawable.Animatable
+import android.graphics.drawable.AnimatedVectorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,14 +51,20 @@ class PostboxListAdapter(private val context: Context, private val dbHelper: Tod
 
     override fun getItemCount(): Int {
         var count = 0
-        dbHelper.readState(where = "id != ?", whereValue = arrayOf(DB_DEFAULT_STATE_TABLE["DONE"].toString() ?: "0")) { cursor: Cursor ->
+        dbHelper.readState(
+            where = "id not in (?, ?)",
+            whereValue = arrayOf(DB_DEFAULT_STATE_TABLE["DONE"].toString() ?: "0", DB_DEFAULT_STATE_TABLE["YET"].toString() ?: "0"))
+        { cursor: Cursor ->
             count = cursor.count
         }
         return count
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        dbHelper.readState(where = "id != ?", whereValue = arrayOf(DB_DEFAULT_STATE_TABLE["DONE"].toString() ?: "0")) { cursor: Cursor ->
+        dbHelper.readState(
+            where = "id not in (?, ?)",
+            whereValue = arrayOf(DB_DEFAULT_STATE_TABLE["DONE"].toString() ?: "0", DB_DEFAULT_STATE_TABLE["YET"].toString() ?: "0"))
+        { cursor: Cursor ->
             cursor.moveToPosition(position)
 
             val stateId = cursor.getInt(cursor.getColumnIndex("id"))
@@ -77,6 +85,7 @@ class PostboxListAdapter(private val context: Context, private val dbHelper: Tod
             }
         }
 
+        (holder.postboxImage.drawable as Animatable).stop()
         holder.postboxImage.setImageResource(R.drawable.ani_postbox_responce)
     }
 

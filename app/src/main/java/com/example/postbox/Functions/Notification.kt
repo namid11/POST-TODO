@@ -12,6 +12,8 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
+import com.example.postbox.Helper.DB_DEFAULT_STATE_TABLE
+import com.example.postbox.Helper.TodoDataBaseOpenHelper
 import com.example.postbox.MainActivity
 import com.example.postbox.R
 import com.example.postbox.Static.NOTIFICATION_ID
@@ -41,24 +43,22 @@ fun notifyTodoUpdate(context: Context) {
     val intent = Intent(context, MainActivity::class.java)
     val pendingIntent = PendingIntent.getActivity(context, NOTIFICATION_TODO_UPDATE_REQUEST_CODE, intent, PendingIntent.FLAG_ONE_SHOT)
 
-    // 通知のBuilderを作成
+    val dbHelper = TodoDataBaseOpenHelper(context)
+    dbHelper.readTodo(id = DB_DEFAULT_STATE_TABLE["YET"] ?: 0) {
+        // 通知のBuilderを作成
+        val builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) NotificationCompat.Builder(context, NOTIFICATION_TODO_UPDATE_ID) else NotificationCompat.Builder(context)
+        val notification = builder
+            .setContentTitle("Updated task state")
+            .setContentText("Remain YET tasks (%d)".format(it.count))
+            .setContentIntent(pendingIntent)     // タップしたときに起動するインテント
+            .setSmallIcon(R.drawable.ic_icon)  // アイコン
+            .setGroupSummary(false)
+            .setAutoCancel(true)     // 通知をタップしたら、その通知を消す
+            .build()
 
-    val builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) NotificationCompat.Builder(context, NOTIFICATION_TODO_UPDATE_ID) else NotificationCompat.Builder(context)
-    // スタイル設定
-//    NotificationCompat.InboxStyle(builder)
-//        .setBigContentTitle("今日のTODO")
-//        .addLine("TODO 1")
-//        .addLine("TODO 2")
-//        .setSummaryText("TODOが更新されました")
-    val notification = builder
-        .setContentTitle("TODO")
-        .setContentText("更新されました")
-        .setContentIntent(pendingIntent)     // タップしたときに起動するインテント
-        .setSmallIcon(R.drawable.ic_icon)  // アイコン
-        .setGroupSummary(false)
-        .setAutoCancel(true)     // 通知をタップしたら、その通知を消す
-        .build()
+        NotificationManagerCompat.from(context).notify(NOTIFICATION_ID.UPDATE.hashCode(), notification) // notify!
+    }
 
-    NotificationManagerCompat.from(context).notify(NOTIFICATION_ID.UPDATE.hashCode(), notification)
+
 
 }
