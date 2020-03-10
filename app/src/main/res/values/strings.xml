@@ -8,4 +8,6 @@
     <string name="update">UPDATE</string>
     <string name="post_todo">POST TODO</string>
     <string name="done">DONE</string>
+    <string name="create_postbox">Create Postbox</string>
+    <string name="edit_postbox">Edit Postbox</string>
 </resources>
